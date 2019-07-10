@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="jquery-3.4.1.js"></script>
+    <script src="angular.js"></script>
+</head>
+
+<body ng-app="student.app">
+    <div align="center" ng-controller="studentData">
+        <input type="button" id="btnDisplay" value="Display" ng-click="displayStudentData()">
+        <input type="button" id="btnAllStudentDisplay" value="AllStudentDisplay" ng-click="displayAllStudentData()">
+        <p>name:{{student.name}}</p>
+        <p>rollNo:{{student.rollNo}}</p>
+        <p>cgpa:{{student.cgpa}}</p>
+        <img src={{student.image}} alt="" height="50" width="50">
+
+        <h5 ng-repeat="student in allStudentData">
+            <p>name:{{student.name}}</p>
+            <p>rollNo:{{student.rollNo}}</p>
+            <p>cgpa:{{student.cgpa}}</p>
+            <img src={{student.image}} alt="" height="50" width="50"></h5>
+    </div>
+
+    <script>
+        angular.module("student.app", []);
+
+        angular.module("student.app").controller("studentData", function($scope, $timeout) {
+            $scope.student = {};
+            $scope.displayStudentData = function() {
+                $timeout(function() {
+                    $scope.student = {
+                        name: "darshan",
+                        rollNo: "7",
+                        cgpa: "6.4",
+                        image: "student.jpg"
+                    }
+                }, 3000);
+                $scope.student = {
+                    name: "vivek",
+                    rollNo: "21",
+                    cgpa: "8.4",
+                    image: "student.jpg"
+                };
+            };
+            $scope.allStudentData = [];
+            $scope.displayAllStudentData = function() {
+                a = {
+                    name: "darshan",
+                    rollNo: "7",
+                    cgpa: "2.4",
+                    image: "student.jpg"
+                };
+                b = {
+                    name: "vivek",
+                    rollNo: "21",
+                    cgpa: "8.4",
+                    image: "student.jpg"
+                };
+                c = {
+                    name: "hiren",
+                    rollNo: "42",
+                    cgpa: "8.2",
+                    image: "student.jpg"
+                };
+                $scope.allStudentData.push(a);
+                $scope.allStudentData.push(b);
+                $scope.allStudentData.push(c);
+            };
+        });
+    </script>
+</body>
+
+</html>
