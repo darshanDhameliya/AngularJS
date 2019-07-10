@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function cubeEvenNo(no) {
+            return new Promise(function(resolve, reject) {
+                if (no % 2 == 0) {
+                    resolve(Math.pow(no, 3));
+                }
+                if (no % 2 != 0) {
+                    reject("number is not even");
+                }
+            });
+        }
+        cubeEvenNo(2).then(function(value) {
+            return value;
+        }).then(function(value) {
+            console.log(value);
+            return cubeEvenNo(value);
+        }).then(function(value) {
+            console.log(value);
+        }).catch(function(error) {
+            console.log(error);
+        })
+        console.log("end program");
+    </script>
+</body>
+
+</html>
