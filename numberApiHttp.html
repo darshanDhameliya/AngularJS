@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+    <script src="angular.js"></script>
+    <script src="ngStorage.min.js"></script>
+</head>
+
+<body ng-app="numberApi.App">
+    <div ng-controller="displayNumbersResult" align="center">
+        <input type="number" id="nbNumber" ng-model="number" name="Number">
+        <input type="button" id="btnSearch" Value="Search" ng-click="searchNumberResult()">
+        <input type="button" id="btnDelete" Value="Delete" ng-click="deleteNumberResult()">
+
+        <div ng-repeat="numberResult in numberResultList">
+            <p>{{numberResult}}</p>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module('numberApi.App', ['ngStorage']);
+        app.controller('displayNumbersResult', function($scope, $http, $localStorage) {
+            $scope.numberResultList = $localStorage.numberResultList;
+            $scope.searchNumberResult = function() {
+                $http.get("http://numbersapi.com/" + $scope.number)
+                    .then(function(response) {
+                        $scope.numberResultList.push(response.data);
+                        $localStorage.numberResultList = $scope.numberResultList;
+                    });
+            };
+            $scope.deleteNumberResult = function() {
+                $scope.numberResultList = [];
+                $localStorage.numberResultList = null;
+            };
+        });
+    </script>
+</body>
+
+</html>
